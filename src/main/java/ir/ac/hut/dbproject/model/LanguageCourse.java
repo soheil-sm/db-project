@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity
@@ -19,6 +19,7 @@ import java.util.Set;
 @Getter
 public class LanguageCourse extends BaseEntity {
 
+    @Enumerated(EnumType.STRING)
     private Language language;
     @ManyToMany
     @JoinTable(name = "student_course", joinColumns = @JoinColumn(name = "course_id"),
@@ -27,6 +28,6 @@ public class LanguageCourse extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "professor_id", nullable = false)
     private Professor professor;
-    private Date startDate;
-    private Date endDate;
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
 }

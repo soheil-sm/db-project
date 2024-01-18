@@ -1,0 +1,29 @@
+version: "3.8"
+
+services:
+  db:
+    image: postgres
+    container_name: pg-db
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: soheil
+      POSTGRES_PASSWORD: soheil
+    volumes:
+      - /Users/soheilmahmoodi/Documents/java/db-volume:/var/lib/postgresql/data
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin4_container
+    restart: always
+    ports:
+      - "8888:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: user-name@domain-name.com
+      PGADMIN_DEFAULT_PASSWORD: soheil
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+
+volumes:
+  docker-volume:
+  pgadmin-data:

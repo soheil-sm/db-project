@@ -1,7 +1,8 @@
 package ir.ac.hut.dbproject.model;
 
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
+import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,12 +20,9 @@ public class Student extends User {
     @ManyToMany(mappedBy = "students")
     private Set<LanguageCourse> courses;
 
-    private int grade;
-
     public Student(String userName, String password, Set<LanguageCourse> courses, int grade) {
         super(userName, password, UserType.STUDENT);
         this.courses = courses;
-        this.grade = grade;
     }
 
 }
