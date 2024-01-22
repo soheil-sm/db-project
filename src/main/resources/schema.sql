@@ -24,7 +24,7 @@ CREATE TABLE courses (Id int primary key
     ,language character(30) ,professor_id int
     ,foreign key (professor_id) references professors(Id));
 
-CREATE TABLE student_course (
-    student_id int ,course_id int ,
-    foreign key (student_id) references students(Id) ,
-    foreign key (course_id) references courses(Id));
+CREATE TABLE student_course (student_id int
+    ,course_id int ,grade int
+    ,foreign key (student_id) references students(Id)
+    ,foreign key (course_id) references courses(Id));

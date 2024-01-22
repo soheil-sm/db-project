@@ -21,13 +21,17 @@ public class LanguageCourse extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     private Language language;
-    @ManyToMany
-    @JoinTable(name = "student_course", joinColumns = @JoinColumn(name = "course_id"),
-            inverseJoinColumns = @JoinColumn(name = "student_id"))
-    private Set<Student> students;
+
+    @OneToMany(mappedBy = "course")
+    Set<StudentCourse> studentCourse;
+
     @ManyToOne
     @JoinColumn(name = "professor_id", nullable = false)
     private Professor professor;
+
     private LocalDateTime startDate;
+
     private LocalDateTime endDate;
+
+
 }

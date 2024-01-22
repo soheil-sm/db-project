@@ -2,6 +2,7 @@ package ir.ac.hut.dbproject.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,12 +18,11 @@ import java.util.Set;
 @Setter
 @Getter
 public class Student extends User {
-    @ManyToMany(mappedBy = "students")
-    private Set<LanguageCourse> courses;
+    @OneToMany(mappedBy = "student")
+    Set<StudentCourse> studentCourses;
 
-    public Student(String userName, String password, Set<LanguageCourse> courses, int grade) {
-        super(userName, password, UserType.STUDENT);
-        this.courses = courses;
+    public Student(String username, String password, Set<StudentCourse> studentCourses) {
+        super(username, password, UserType.STUDENT);
+        this.studentCourses = studentCourses;
     }
-
 }

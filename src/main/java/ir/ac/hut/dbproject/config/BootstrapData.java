@@ -2,9 +2,12 @@ package ir.ac.hut.dbproject.config;
 
 import ir.ac.hut.dbproject.model.*;
 import ir.ac.hut.dbproject.repositories.*;
+import lombok.AllArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.stereotype.Component;
 
+import java.lang.reflect.Executable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -13,6 +16,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Component
+@AllArgsConstructor
 public class BootstrapData implements CommandLineRunner {
 
     private final UserRepository userRepository;
@@ -20,16 +24,7 @@ public class BootstrapData implements CommandLineRunner {
     private final ProfessorRepository professorRepository;
     private final LanguageCourseRepository languageCourseRepository;
     private final AdminRepository adminRepository;
-
-    public BootstrapData(UserRepository userRepository, StudentRepository studentRepository,
-                         ProfessorRepository professorRepository, LanguageCourseRepository languageCourseRepository,
-                         AdminRepository adminRepository) {
-        this.userRepository = userRepository;
-        this.studentRepository = studentRepository;
-        this.professorRepository = professorRepository;
-        this.languageCourseRepository = languageCourseRepository;
-        this.adminRepository = adminRepository;
-    }
+    private final StudentCourseRepository studentCourseRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -50,8 +45,6 @@ public class BootstrapData implements CommandLineRunner {
                 .build();
         professorRepository.save(u);
 
-        Set<LanguageCourse> s = new HashSet<>();
-        Set<Student> set = new HashSet<>();
 
         Student u2 = Student
                 .builder()
@@ -60,7 +53,6 @@ public class BootstrapData implements CommandLineRunner {
                 .username("sshh")
                 .password("hhhhh")
                 .userType(UserType.STUDENT)
-                .courses(s)
                 .build();
 
         LanguageCourse course = LanguageCourse
@@ -68,20 +60,32 @@ public class BootstrapData implements CommandLineRunner {
                 .language(Language.ENGLISH)
                 .startDate(LocalDateTime.now())
                 .professor(u)
-                .students(set)
                 .build();
 
-        s.add(course);
-        set.add(u2);
+        StudentCourse studentCourse = StudentCourse
+                .builder()
+                .student(u2)
+                .course(course)
+                .build();
+
+//        Set<StudentCourse> studentCourses = new HashSet<>();
+//        studentCourses.add(studentCourse);
+//
+//        u2.setStudentCourses(studentCourses);
+//        course.setStudentCourse(studentCourses);
+
+        StudentCourseKey studentCourseKey = new StudentCourseKey();
+        studentCourseKey.setCourseId(course.getId());
+        studentCourseKey.setStudentId(u2.getId());
+        studentCourse.setId(studentCourseKey);
 
         studentRepository.save(u2);
         languageCourseRepository.save(course);
+//        try {
 
-
-
-
-
-
-
+            studentCourseRepository.save(studentCourse);
+//        } catch (JpaSystemException e) {
+//            System.out.println("kir");
+//        }
     }
 }
