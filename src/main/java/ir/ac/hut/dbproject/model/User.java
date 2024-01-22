@@ -16,13 +16,13 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @Getter
 public class User extends Person {
-    @Column(name = "userName")
-    private String userName;
+    @Column(name = "username")
+    private String username;
 
     @Column(name = "password")
     private String password;
 
-    @Column(name = "user-type")
+    @Column(name = "usertype")
     @Enumerated(EnumType.STRING)
     private UserType userType;
 

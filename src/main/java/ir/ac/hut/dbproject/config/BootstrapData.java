@@ -44,7 +44,7 @@ public class BootstrapData implements CommandLineRunner {
                 .builder()
                 .fistName("majid")
                 .lastName("esfanani")
-                .userName("mmjj")
+                .username("mmjj")
                 .password("hihihihih")
                 .userType(UserType.PROFESSOR)
                 .build();
@@ -57,7 +57,7 @@ public class BootstrapData implements CommandLineRunner {
                 .builder()
                 .fistName("soheil")
                 .lastName("mahmoodi")
-                .userName("sshh")
+                .username("sshh")
                 .password("hhhhh")
                 .userType(UserType.STUDENT)
                 .courses(s)

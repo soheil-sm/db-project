@@ -13,8 +13,8 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @ToString(callSuper = true)
 public class Person extends BaseEntity {
-    @Column(name = "first_name")
+    @Column(name = "firstname")
     private String fistName;
-    @Column(name = "last_name")
+    @Column(name = "lastname")
     private String lastName;
 }
