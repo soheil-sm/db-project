@@ -4,10 +4,9 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
-//@Entity
-//@Table(name = "users")
-//@Inheritance(strategy = InheritanceType.JOINED)
-@MappedSuperclass
+@Entity
+@Table(name = "users")
+@Inheritance(strategy = InheritanceType.JOINED)
 @SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
