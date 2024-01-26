@@ -12,7 +12,6 @@ import java.util.Objects;
 @NoArgsConstructor
 @Setter
 @Getter
-@ToString
 public class StudentCourseKey implements Serializable {
 
     @Column(name = "student_id")

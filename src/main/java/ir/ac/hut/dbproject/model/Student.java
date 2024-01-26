@@ -1,14 +1,12 @@
 package ir.ac.hut.dbproject.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -25,4 +23,8 @@ public class Student extends User {
         super(username, password, UserType.STUDENT);
         this.studentCourses = studentCourses;
     }
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "student", fetch = FetchType.EAGER)
+    private List<Attendance> attendances;
+
 }

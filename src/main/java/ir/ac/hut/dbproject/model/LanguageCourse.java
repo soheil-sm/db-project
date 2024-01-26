@@ -8,6 +8,7 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -33,5 +34,7 @@ public class LanguageCourse extends BaseEntity {
 
     private LocalDateTime endDate;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "languageCourse", fetch = FetchType.EAGER)
+    private List<Attendance> attendances;
 
 }

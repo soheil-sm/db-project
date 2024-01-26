@@ -1,20 +1,19 @@
 package ir.ac.hut.dbproject.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
-@Entity
-@Table(name = "users")
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+//@Entity
+//@Table(name = "users")
+//@Inheritance(strategy = InheritanceType.JOINED)
+@MappedSuperclass
 @SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter
 @Getter
+@ToString(callSuper = true)
 public class User extends Person {
     @Column(name = "username")
     private String username;

@@ -4,27 +4,25 @@ import ir.ac.hut.dbproject.model.*;
 import ir.ac.hut.dbproject.repositories.*;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.stereotype.Component;
 
-import java.lang.reflect.Executable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 @Component
 @AllArgsConstructor
 public class BootstrapData implements CommandLineRunner {
 
-    private final UserRepository userRepository;
     private final StudentRepository studentRepository;
     private final ProfessorRepository professorRepository;
     private final LanguageCourseRepository languageCourseRepository;
     private final AdminRepository adminRepository;
     private final StudentCourseRepository studentCourseRepository;
+    private final AttendanceRepository attendanceRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -45,6 +43,13 @@ public class BootstrapData implements CommandLineRunner {
                 .build();
         professorRepository.save(u);
 
+        Attendance attendance = Attendance
+                .builder()
+                .present(true)
+                .date(LocalDateTime.now())
+                .build();
+
+        List<Attendance> attendances = new ArrayList<>();
 
         Student u2 = Student
                 .builder()
@@ -73,6 +78,8 @@ public class BootstrapData implements CommandLineRunner {
 //
 //        u2.setStudentCourses(studentCourses);
 //        course.setStudentCourse(studentCourses);
+        attendance.setStudent(u2);
+        attendance.setLanguageCourse(course);
 
         StudentCourseKey studentCourseKey = new StudentCourseKey();
         studentCourseKey.setCourseId(course.getId());
@@ -83,9 +90,21 @@ public class BootstrapData implements CommandLineRunner {
         languageCourseRepository.save(course);
 //        try {
 
-            studentCourseRepository.save(studentCourse);
+        studentCourseRepository.save(studentCourse);
 //        } catch (JpaSystemException e) {
 //            System.out.println("kir");
 //        }
+
+
+        attendanceRepository.save(attendance);
+
+//        Optional<Professor> optionalProfessor = professorRepository.findById(147L);
+//        Professor professor = null;
+//        if (optionalProfessor.isPresent()) {
+//            professor = optionalProfessor.get();
+//        }
+//
+//        System.out.println(professor.toString());
+
     }
 }

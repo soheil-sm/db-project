@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
 import java.util.Set;
@@ -15,6 +16,7 @@ import java.util.Set;
 @SuperBuilder
 @Setter
 @Getter
+@ToString(callSuper = true)
 public class Professor extends User {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "professor", fetch = FetchType.EAGER)
     private Set<LanguageCourse> courses;
@@ -23,4 +25,6 @@ public class Professor extends User {
         super(userName, password, UserType.PROFESSOR);
         this.courses = courses;
     }
+
+
 }
